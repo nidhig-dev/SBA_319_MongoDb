@@ -2,7 +2,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./db/conn.mjs"
-// import adminRoutes from "./routes/adminRoutes.mjs";
+import adminRoutes from "./routes/adminRoutes.mjs";
 // import bookRoutes from "./routes/bookRoutes.mjs";
 // import borrowRoutes from "./routes/borrowRoutes.mjs";
 
@@ -18,7 +18,7 @@ connectDB();
 app.use(express.json());
 
 //routes
-// app.use("/api/admin",adminRoutes);
+app.use("/api/admin",adminRoutes);
 // app.use("/api/books",bookRoutes);
 // app.use("/api/borrow",borrowRoutes);
 
