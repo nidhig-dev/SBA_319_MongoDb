@@ -1,7 +1,7 @@
 //Imports
 import express from "express";
 import Books from "../models/booksSchema.mjs";
-import {books} from "../data/books.mjs"
+import { books } from "../data/books.mjs"
 
 //setups
 const router = express.Router();
@@ -21,7 +21,7 @@ const router = express.Router();
 //         catch(err){
 //             res.status(500).json({msg:"Books data seeding was unsucessful"});
 //         }
-    
+
 // })
 
 //Routes
@@ -29,7 +29,15 @@ router.route("/")
     //@route:GET(/api/books/seed)
     //@desc: seeds data in boorow collection
     //@access:public
-
+    //@sample data:
+    /* {
+    "bookNo": 17,
+    "title": "The Class",
+    "author": "Eric Segal",
+    "description": "A powerful and moving saga of five extraordinary members of the Harvard class of 1958 and the women with whom their lives are intertwined. Their explosive story begins in a time of innocence and spans a turbulent quarter century, culminating in their dramatic twenty-five reunion at which they confront their classmates--and the balance sheet of their own lives. Always at the center; amid the passion, laughter, and glory, stands Harvard--the symbol of who they are and who they will be. They were a generation who made the rules--then broke them--whose glittering successes, heartfelt tragedies, and unbridled ambitions would stun the world.",
+    "pages": 560,
+    "cover": "https://m.media-amazon.com/images/I/51rIay3vijL.jpg"
+    }*/
     .post(async (req, res) => {
         try {
             let newBook = await Books.create(req.body);
@@ -45,13 +53,13 @@ router.route("/")
 
     .get(async (req, res) => {
         try {
-            let getBook = await Books.find({}).sort({bookNo:1});
+            let getBook = await Books.find({}).sort({ bookNo: 1 });
             if (getBook) {
                 res.json(getBook);
             }
             else {
                 return res.status(404).json({ msg: "No data in books collection" });
-            }            
+            }
         }
         catch (err) {
             res.status(err.status || 500).json({ msg: err.message });
@@ -70,7 +78,7 @@ router.route("/:id")
             }
             else {
                 return res.status(404).json({ msg: "No books found" });
-            }            
+            }
         }
         catch (err) {
             res.status(err.status || 500).json({ msg: err.message });
@@ -88,7 +96,7 @@ router.route("/:id")
 
             } else {
                 res.json(updateBook);
-            }            
+            }
         }
         catch (err) {
             res.status(err.status || 500).json({ msg: err.message });
@@ -106,7 +114,7 @@ router.route("/:id")
 
             } else {
                 res.json(deleteBook);
-            }            
+            }
         }
         catch (err) {
             res.status(err.status || 500).json({ msg: err.message });

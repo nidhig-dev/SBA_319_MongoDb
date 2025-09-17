@@ -43,7 +43,7 @@ const borrowSchema=new mongoose.Schema({
 //Index
 borrowSchema.index({userId:1});
 borrowSchema.index({ bookId: 1 });
-borrowSchema.index({ userId: 1 ,bookId:1});
+borrowSchema.index({ userId: 1, bookId: 1 }, { unique: true });
 //export
 export default mongoose.model("Borrow", borrowSchema);
 

@@ -10,13 +10,12 @@ const connectionString=process.env.MongoURI||"";
 async function connectDB(){
     try{
         await mongoose.connect(connectionString);
-        console.log("Connected to Mongodb...... ")
+        console.log("Connected to Mongodb...... ");        
     }
     catch(err){
-        res.status(500).json({msg:err.message});
+        console.error(err.message);
     }
 
 }
-
 //export
 export default connectDB;
