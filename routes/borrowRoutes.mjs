@@ -26,21 +26,27 @@ router.route("/seed")
 
 //Routes
 router.route("/")
-    //@route:GET(/api/borrow/seed)
-    //@desc: seeds data in boorow collection
+    //@route:POST(/api/borrow)
+    //@desc: creates one or more borrow entry in books collection
     //@access:public
 
     .post(async (req, res) => {
         try {
-            let newBorrow = await Borrow.create(req.body);
-            res.json(newBorrow);
+            if(req.body.userId&&req.body.bookId&&req.body.status&&req.body.renewcount){
+                let newBorrow = await Borrow.create(req.body);
+                res.json(newBorrow);
+            }
+            else {
+                return res.status(400).json({ msg: "Required fields are missing!" });
+            }
+            
         }
         catch (err) {
             res.status(err.status || 500).json({ msg: err.message });
         }
     })
-    //@route:GET(/api/borrow/seed)
-    //@desc: seeds data in boorow collection
+    //@route:GET(/api/borrow/)
+    //@desc: gets list of borrow records from borrow collection
     //@access:public
 
     .get(async (req, res) => {
@@ -59,8 +65,8 @@ router.route("/")
         }
     })
 router.route("/:id")
-    //@route:GET(/api/borrow/seed)
-    //@desc: seeds data in boorow collection
+    //@route:GET(/api/borrow/:id)
+    //@desc: gets one record entry from borrow collection based on Object Id
     //@access:public
 
     .get(async (req, res) => {
@@ -78,8 +84,8 @@ router.route("/:id")
             res.status(err.status || 500).json({ msg: err.message });
         }
     })
-    //@route:GET(/api/borrow/seed)
-    //@desc: seeds data in boorow collection
+    //@route:PUT(/api/borrow/:id)
+    //@desc: updates one borrow record in borrow collection based on object id.
     //@access:public
 
     .put(async (req, res) => {
@@ -97,8 +103,8 @@ router.route("/:id")
             res.status(err.status || 500).json({ msg: err.message });
         }
     })
-    //@route:GET(/api/borrow/seed)
-    //@desc: seeds data in boorow collection
+    //@route:GET(/api/borrow/:id)
+    //@desc: deletes one borrow entry in borrow collection based on object id
     //@access:public
 
     .delete(async (req, res) => {
@@ -117,8 +123,8 @@ router.route("/:id")
     })
 
 router.route("/user/:id")
-    //@route:GET(/api/borrow/seed)
-    //@desc: seeds data in boorow collection
+    //@route:GET(/api/borrow/user/:id)
+    //@desc: get all the borrow records for a user based on userId
     //@access:public
 
     .get(async (req, res) => {
@@ -130,15 +136,14 @@ router.route("/user/:id")
             else {
                 return res.status(404).json({ msg: "No borrow record for this user found" });
             }
-
         }
         catch (err) {
             res.status(err.status || 500).json({ msg: err.message });
         }
     })
 router.route("/book/:id")
-    //@route:GET(/api/borrow/seed)
-    //@desc: seeds data in boorow collection
+    //@route:GET(/api/borrow/book/:id)
+    //@desc: get all borrow records for a book based on bookId 
     //@access:public
 
     .get(async (req, res) => {
@@ -158,8 +163,8 @@ router.route("/book/:id")
     })
 
 router.route("/user/:userId/book/:bookId")
-    //@route:GET(/api/borrow/seed)
-    //@desc: seeds data in boorow collection
+    //@route:GET(/api/borrow/user/:userId/book/:bookId)
+    //@desc: get all the records of a user for a book based on userId and bookId
     //@access:public
 
     .get(async (req, res) => {

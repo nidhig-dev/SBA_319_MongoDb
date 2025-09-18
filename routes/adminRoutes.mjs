@@ -31,8 +31,8 @@ router.route("/")
 
     .post(async (req, res) => {
         try {
-            let newAdmin = await Admin.create(req.body);
             if (req.body.name && req.body.email && req.body.role && req.body.isActive) {
+                let newAdmin = await Admin.create(req.body);
                 res.json(newAdmin);
             }
             else {

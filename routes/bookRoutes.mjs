@@ -48,9 +48,9 @@ router.route("/")
             //if the title exists
             if (existing) {
                 return res.status(400).json({ msg: 'Book title already exists' });
-            }
-            let newBook = await Books.create(req.body);
+            }            
             if (req.body.bookNo && req.body.title && req.body.author) {
+                let newBook = await Books.create(req.body);
                 res.json(newBook);
             }
             else {
@@ -81,7 +81,7 @@ router.route("/")
     })
 router.route("/:id")
     //@route:GET(/api/books/:id)
-    //@desc: gets one book entryfrom books collection based on Object Id
+    //@desc: gets one book entry from books collection based on Object Id
     //@access:public
 
     .get(async (req, res) => {
