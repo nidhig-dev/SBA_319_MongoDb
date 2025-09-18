@@ -46,7 +46,7 @@ router.route("/")
     .get(async (req, res) => {
         try {
             let getBorrow = await Borrow.find({});
-            if (getBorrow) {
+            if (getBorrow.length>0) {
                 res.json(getBorrow);
             }
             else {

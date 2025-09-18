@@ -8,26 +8,26 @@ const router = express.Router();
 
 //seed route for books
 //@route:GET(/api/books/seed)
-//@desc: seeds data in boorow collection
+//@desc: seeds data in books collection
 //@access:public
 
-// router.route("/seed")
-// .get(async(req,res)=>{
-//     try{
-//         await Books.deleteMany({});
-//         await Books.create(books);    
-//         res.send("Books data has been seeded");
-//         }
-//         catch(err){
-//             res.status(500).json({msg:"Books data seeding was unsucessful"});
-//         }
+router.route("/seed")
+    .get(async (req, res) => {
+        try {
+            await Books.deleteMany({});
+            await Books.create(books);
+            res.send("Books data has been seeded");
+        }
+        catch (err) {
+            res.status(500).json({ msg: "Books data seeding was unsucessful" });
+        }
 
-// })
+    })
 
 //Routes
 router.route("/")
-    //@route:GET(/api/books/seed)
-    //@desc: seeds data in boorow collection
+    //@route:POST(/api/books)
+    //@desc: creates one or more book entry in books collection
     //@access:public
     //@sample data:
     /* {
@@ -40,21 +40,35 @@ router.route("/")
     }*/
     .post(async (req, res) => {
         try {
+            //check for existing title in database
+            const existing = await Books.findOne({
+                //making sure title check is case insensitive
+                title: { $regex: new RegExp(`^${req.body.title.trim()}$`, 'i') }
+            });
+            //if the title exists
+            if (existing) {
+                return res.status(400).json({ msg: 'Book title already exists' });
+            }
             let newBook = await Books.create(req.body);
-            res.json(newBook);
+            if (req.body.bookNo && req.body.title && req.body.author) {
+                res.json(newBook);
+            }
+            else {
+                return res.status(400).json({ msg: "Required fields are missing!" });
+            }
         }
         catch (err) {
             res.status(err.status || 500).json({ msg: err.message });
         }
     })
     //@route:GET(/api/books/)
-    //@desc: seeds data in boorow collection
+    //@desc: gets list of books from books collection
     //@access:public
 
     .get(async (req, res) => {
         try {
             let getBook = await Books.find({}).sort({ bookNo: 1 });
-            if (getBook) {
+            if (getBook.length>0) {
                 res.json(getBook);
             }
             else {
@@ -66,8 +80,8 @@ router.route("/")
         }
     })
 router.route("/:id")
-    //@route:GET(/api/books/seed)
-    //@desc: seeds data in boorow collection
+    //@route:GET(/api/books/:id)
+    //@desc: gets one book entryfrom books collection based on Object Id
     //@access:public
 
     .get(async (req, res) => {
@@ -84,8 +98,8 @@ router.route("/:id")
             res.status(err.status || 500).json({ msg: err.message });
         }
     })
-    //@route:GET(/api/books/seed)
-    //@desc: seeds data in boorow collection
+    //@route:PUT(/api/books/:id)
+    //@desc: updates one book record in book collection based on object id.
     //@access:public
 
     .put(async (req, res) => {
@@ -102,8 +116,8 @@ router.route("/:id")
             res.status(err.status || 500).json({ msg: err.message });
         }
     })
-    //@route:GET(/api/books/seed)
-    //@desc: seeds data in boorow collection
+    //@route:DELETE(/api/books/:id)
+    //@desc: deletes one book entry in book collection based on object id
     //@access:public
 
     .delete(async (req, res) => {
@@ -121,13 +135,16 @@ router.route("/:id")
         }
     })
 router.route("/title/:name")
-    //@route:GET(/api/books/seed)
-    //@desc: seeds data in boorow collection
+    //@route:GET(/api/books/title/:id)
+    //@desc: finds a book by title in books collection
     //@access:public
 
     .get(async (req, res) => {
         try {
-            let getTitle = await Books.findOne({ title: req.params.name });
+            let getTitle = await Books.findOne({
+                //get title ignoring Case sensitiveness
+                title: { $regex: new RegExp(`^${req.params.name.trim()}$`, 'i') }
+            });
             if (getTitle) {
                 res.json(getTitle);
             }
@@ -140,8 +157,8 @@ router.route("/title/:name")
         }
     })
 router.route("/bookNo/:id")
-    //@route:GET(/api/books/seed)
-    //@desc: seeds data in boorow collection
+    //@route:GET(/api/books/bookNo/:id)
+    //@desc: gets a book from books collection based on bookNo
     //@access:public
 
     .get(async (req, res) => {
@@ -151,7 +168,7 @@ router.route("/bookNo/:id")
                 res.json(getBook);
             }
             else {
-                return res.status(404).json({ msg: "No such book No found" });
+                return res.status(404).json({ msg: "No such book Number found" });
             }
         }
         catch (err) {
