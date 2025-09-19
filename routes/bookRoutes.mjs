@@ -135,7 +135,7 @@ router.route("/:id")
         }
     })
 router.route("/title/:name")
-    //@route:GET(/api/books/title/:id)
+    //@route:GET(/api/books/title/:name)
     //@desc: finds a book by title in books collection
     //@access:public
 
