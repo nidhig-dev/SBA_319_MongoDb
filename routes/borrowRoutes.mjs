@@ -32,14 +32,8 @@ router.route("/")
 
     .post(async (req, res) => {
         try {
-            //if(req.body.userId&&req.body.bookId&&req.body.status){
             let newBorrow = await Borrow.create(req.body);
             res.json(newBorrow);
-            // }
-            // else {
-            //     return res.status(400).json({ msg: "Required fields are missing!" });
-            // }
-
         }
         catch (err) {
             res.status(err.status || 500).json({ msg: err.message });

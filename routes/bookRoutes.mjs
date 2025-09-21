@@ -48,14 +48,9 @@ router.route("/")
             //if the title exists
             if (existing) {
                 return res.status(400).json({ msg: 'Book title already exists' });
-            }            
-           // if (req.body.bookNo && req.body.title && req.body.author) {
-                let newBook = await Books.create(req.body);
-                res.json(newBook);
-            // }
-            // else {
-            //     return res.status(400).json({ msg: "Required fields are missing!" });
-            // }
+            }
+            let newBook = await Books.create(req.body);
+            res.json(newBook);
         }
         catch (err) {
             res.status(err.status || 500).json({ msg: err.message });
@@ -68,7 +63,7 @@ router.route("/")
     .get(async (req, res) => {
         try {
             let getBook = await Books.find({}).sort({ bookNo: 1 });
-            if (getBook.length>0) {
+            if (getBook.length > 0) {
                 res.json(getBook);
             }
             else {

@@ -11,17 +11,17 @@ const router = express.Router();
 //@access:public
 
 router.route("/seed")
-.get(async(req,res)=>{
-    try{
-        await Admin.deleteMany({});
-    await Admin.create(admin);    
-    res.send("Admin data has been seeded");
-    }
-    catch(err){
-        res.status(500).json({msg:"Admin data seeding was unsucessful"});
-    }
+    .get(async (req, res) => {
+        try {
+            await Admin.deleteMany({});
+            await Admin.create(admin);
+            res.send("Admin data has been seeded");
+        }
+        catch (err) {
+            res.status(500).json({ msg: "Admin data seeding was unsucessful" });
+        }
 
-})
+    })
 
 //Routes
 router.route("/")
@@ -31,13 +31,8 @@ router.route("/")
 
     .post(async (req, res) => {
         try {
-           // if (req.body.name && req.body.email && req.body.role) {
-                let newAdmin = await Admin.create(req.body);
-                res.json(newAdmin);
-            // }
-            // else {
-            //     return res.status(400).json({ msg: "Required fields are missing!" });
-            // }
+            let newAdmin = await Admin.create(req.body);
+            res.json(newAdmin);
         }
         catch (err) {
             res.status(err.status || 500).json({ msg: err.message });
@@ -105,7 +100,6 @@ router.route("/:id")
     .delete(async (req, res) => {
         try {
             let deleteAdmin = await Admin.findByIdAndDelete(req.params.id);
-            // console.log(deleteAdmin);
             if (!deleteAdmin) {
                 return res.status(404).json({ msg: "No admin found to be deleted" });
 
