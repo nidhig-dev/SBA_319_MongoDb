@@ -4,7 +4,7 @@ This is a RESTful API built using **Node.js**, **Express**, and **MongoDB** (wit
 
 - Admin management
 - Book cataloging
-- Borrowing system
+- Borrow/Return/Renew record system
 
 ---
 
@@ -14,7 +14,7 @@ This is a RESTful API built using **Node.js**, **Express**, and **MongoDB** (wit
 | Method | Route                  | Description                                     | Route parameter                       |
 | ------ | -----------------------| ------------------------------------------------|-------------------------------------- |
 | GET    | `/api/admin/seed/`     | seed admin database                             |                                       |
-| POST   | `/api/admin`           | creates one or more admins in admin collection  |                                       |
+| POST   | `/api/admin`           | creates one or more admins in admin collection (Sample data below) |                                       |
 | GET    | `/api/admin`           | gets list of admins from admin collection       |                                       |
 | GET    | `/api/admin/:id`       | gets one admin based on object id.              | Object Id                             |
 | PUT    | `/api/admin/:id`       | updates one data record based on object id.     | Object Id                             |
@@ -26,12 +26,12 @@ This is a RESTful API built using **Node.js**, **Express**, and **MongoDB** (wit
 | Method | Route                  | Description                                     | Route parameter      |
 | ------ | -----------------------| ------------------------------------------------|--------------------- |
 | GET    | `/api/books/seed`      | seeds data in books collection                  |                      |
-| POST   | `/api/books`           | creates one or more book entry                  |                      |
+| POST   | `/api/books`           | creates one or more book entry (Sample data below)                  |                      |
 | GET    | `/api/books`           | gets list of books                              |                      |
 | GET    | `/api/books/:id`       | gets one book entry based on Object Id          | Object Id            |
 | PUT    | `/api/books/:id`       | updates one book record based on object id.     | Object Id            |
 | DELETE | `/api/books/:id`       | deletes one book record based on object id      | Object Id            |  
-| GET    |`/api/books/title/:name`| finds a book by title in books collection       | title                |
+| GET    |`/api/books/title/:name`| finds a book by (complete title) title in books collection       | title                |
 | GET    | `/api/books/bookNo/:id`| gets a book based on bookNo                     | BookNo               |          
 
 
@@ -39,7 +39,7 @@ This is a RESTful API built using **Node.js**, **Express**, and **MongoDB** (wit
 | Method | Route                                  | Description                                                         | Route parameter |
 | ------ | -------------------------------------- | ------------------------------------------------------------------- |------------|
 | GET    | `/api/borrow/seed`                     | seeds data in borrow collection                                     |            |
-| POST   | `/api/borrow`                          | creates one or more borrow entry                                    |            |
+| POST   | `/api/borrow`                          | creates one or more borrow entry (Sample data below)                 |            |
 | GET    | `/api/borrow`                          | gets list of borrow records                                         |            |
 | GET    | `/api/borrow/:id`                      | gets one borrow entry based on Object Id                            | Object Id  | 
 | PUT    | `/api/borrow/:id`                      | updates one borrow record based on object id                        | Object Id  |
@@ -69,7 +69,7 @@ This is a RESTful API built using **Node.js**, **Express**, and **MongoDB** (wit
     ```{
         "name": "Nidhi Goyal",
         "email": "goyal.nidhi@example.com",
-        "age": 30,
+        "age": 35,
         "role": "admin",
         "isActive":"true"
 }
@@ -77,7 +77,7 @@ This is a RESTful API built using **Node.js**, **Express**, and **MongoDB** (wit
 - Sample data for Boooks database:
 
    ```{
-    "bookNo": 17,
+    "bookNo": 16,
     "title": "The Class",
     "author": "Eric Segal",
     "description": "A powerful and moving saga of five extraordinary members of the Harvard class of 1958 and the women with whom their lives are intertwined. Their explosive story begins in a time of innocence and spans a turbulent quarter century, culminating in their dramatic twenty-five reunion at which they confront their classmates--and the balance sheet of their own lives. Always at the center; amid the passion, laughter, and glory, stands Harvard--the symbol of who they are and who they will be. They were a generation who made the rules--then broke them--whose glittering successes, heartfelt tragedies, and unbridled ambitions would stun the world.",
@@ -106,7 +106,7 @@ This is a RESTful API built using **Node.js**, **Express**, and **MongoDB** (wit
 - ✅Create DELETE routes for data, as appropriate, using appropriate delete commands to remove data from the database. At least one data collection should allow for client deletion via a DELETE request.
 - ✅Include sensible indexes for any and all fields that are queried frequently. For fields that may have a high write-to-read ratio, you may forgo indexes for performance considerations. Make comments of this where applicable.
 - ✅Include sensible MongoDB data validation rules for at least one data collection.
-Note: this may be accomplished in a number of ways. If you choose to perform this task outside of your application's code, you must include a way to test the validation within the application's routes. This can be as simple as providing a POST route that attempt
+Note: this may be accomplished in a number of ways. If you choose to perform this task outside of your application's code, you must include a way to test the validation within the application's routes. This can be as simple as providing a POST route that attempts to create an invalid document and displays the resulting error.
 - ✅Populate your application's collections with sample data illustrating the use case of the collections. You must include at least five sample documents per collection.
 Note: Double-check this requirement before submission. Testing your delete routes may leave you under the requirement. To be safe, populate your collections with sample data well above the requirement (we recommend 10-20 documents).
 - ✅Utilize reasonable code organization practices.

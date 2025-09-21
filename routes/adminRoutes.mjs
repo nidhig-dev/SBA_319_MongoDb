@@ -31,13 +31,13 @@ router.route("/")
 
     .post(async (req, res) => {
         try {
-            if (req.body.name && req.body.email && req.body.role && req.body.isActive) {
+           // if (req.body.name && req.body.email && req.body.role) {
                 let newAdmin = await Admin.create(req.body);
                 res.json(newAdmin);
-            }
-            else {
-                return res.status(400).json({ msg: "Required fields are missing!" });
-            }
+            // }
+            // else {
+            //     return res.status(400).json({ msg: "Required fields are missing!" });
+            // }
         }
         catch (err) {
             res.status(err.status || 500).json({ msg: err.message });
@@ -54,7 +54,7 @@ router.route("/")
                 res.json(getAdmin);
             }
             else {
-                res.status(404).json({ msg: "No data in admin collection" });
+                return res.status(404).json({ msg: "No data in admin collection" });
             }
         }
         catch (err) {
@@ -73,7 +73,7 @@ router.route("/:id")
                 res.json(getAdmin);
             }
             else {
-                res.status(404).json({ msg: "No Admin found" });
+                return res.status(404).json({ msg: "No Admin found" });
             }
         }
         catch (err) {
@@ -88,7 +88,7 @@ router.route("/:id")
         try {
             let updateAdmin = await Admin.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
             if (!updateAdmin) {
-                res.status(404).json({ msg: "No admin found to be updated" });
+                return res.status(404).json({ msg: "No admin found to be updated" });
 
             } else {
                 res.json(updateAdmin);
@@ -107,7 +107,7 @@ router.route("/:id")
             let deleteAdmin = await Admin.findByIdAndDelete(req.params.id);
             // console.log(deleteAdmin);
             if (!deleteAdmin) {
-                res.status(404).json({ msg: "No admin found to be deleted" });
+                return res.status(404).json({ msg: "No admin found to be deleted" });
 
             } else {
                 res.json(deleteAdmin);
@@ -129,7 +129,7 @@ router.route("/role/:role")
                 res.json(getAdmin);
             }
             else {
-                res.status(404).json({ msg: "No such Admin role found" });
+                return res.status(404).json({ msg: "No such Admin role found" });
             }
 
         }

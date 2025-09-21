@@ -32,14 +32,14 @@ router.route("/")
 
     .post(async (req, res) => {
         try {
-            if(req.body.userId&&req.body.bookId&&req.body.status&&req.body.renewcount){
-                let newBorrow = await Borrow.create(req.body);
-                res.json(newBorrow);
-            }
-            else {
-                return res.status(400).json({ msg: "Required fields are missing!" });
-            }
-            
+            //if(req.body.userId&&req.body.bookId&&req.body.status){
+            let newBorrow = await Borrow.create(req.body);
+            res.json(newBorrow);
+            // }
+            // else {
+            //     return res.status(400).json({ msg: "Required fields are missing!" });
+            // }
+
         }
         catch (err) {
             res.status(err.status || 500).json({ msg: err.message });
@@ -52,7 +52,7 @@ router.route("/")
     .get(async (req, res) => {
         try {
             let getBorrow = await Borrow.find({});
-            if (getBorrow.length>0) {
+            if (getBorrow.length > 0) {
                 res.json(getBorrow);
             }
             else {
@@ -129,8 +129,8 @@ router.route("/user/:id")
 
     .get(async (req, res) => {
         try {
-            let getBorrow = await Borrow.find({userId:req.params.id});
-            if (getBorrow.length>0) {
+            let getBorrow = await Borrow.find({ userId: req.params.id });
+            if (getBorrow.length > 0) {
                 res.json(getBorrow);
             }
             else {
@@ -149,7 +149,7 @@ router.route("/book/:id")
     .get(async (req, res) => {
         try {
             let getBorrow = await Borrow.find({ bookId: req.params.id });
-            if (getBorrow.length>0) {
+            if (getBorrow.length > 0) {
                 res.json(getBorrow);
             }
             else {

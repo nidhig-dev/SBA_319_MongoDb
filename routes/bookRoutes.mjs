@@ -49,13 +49,13 @@ router.route("/")
             if (existing) {
                 return res.status(400).json({ msg: 'Book title already exists' });
             }            
-            if (req.body.bookNo && req.body.title && req.body.author) {
+           // if (req.body.bookNo && req.body.title && req.body.author) {
                 let newBook = await Books.create(req.body);
                 res.json(newBook);
-            }
-            else {
-                return res.status(400).json({ msg: "Required fields are missing!" });
-            }
+            // }
+            // else {
+            //     return res.status(400).json({ msg: "Required fields are missing!" });
+            // }
         }
         catch (err) {
             res.status(err.status || 500).json({ msg: err.message });
@@ -91,7 +91,7 @@ router.route("/:id")
                 res.json(getBook);
             }
             else {
-                return res.status(404).json({ msg: "No books found" });
+                return res.status(404).json({ msg: "No book found" });
             }
         }
         catch (err) {
@@ -136,7 +136,7 @@ router.route("/:id")
     })
 router.route("/title/:name")
     //@route:GET(/api/books/title/:name)
-    //@desc: finds a book by title in books collection
+    //@desc: finds a book by (complete title) title in books collection
     //@access:public
 
     .get(async (req, res) => {

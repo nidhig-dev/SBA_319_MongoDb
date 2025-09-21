@@ -21,7 +21,7 @@ const adminSchema = new mongoose.Schema({
     age: {
         type: Number,
         min:18,
-        max:80,       
+        max:100,       
     },
     role: {
         type: String,
