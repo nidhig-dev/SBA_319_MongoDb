@@ -28,7 +28,7 @@ This is a RESTful API built using **Node.js**, **Express**, and **MongoDB** (wit
 | GET    | `/api/books/seed`      | seeds data in books collection                  |                      |
 | POST   | `/api/books`           | creates one or more book entry (Sample data below)                  |                      |
 | GET    | `/api/books`           | gets list of books                              |                      |
-| GET    | `/api/books/:id`       | gets one book entry based on Object Id          | Object Id            |
+| GET    | `/api/books/:id`       | gets one book entry based on object Id          | Object Id            |
 | PUT    | `/api/books/:id`       | updates one book record based on object id.     | Object Id            |
 | DELETE | `/api/books/:id`       | deletes one book record based on object id      | Object Id            |  
 | GET    |`/api/books/title/:name`| finds a book by (complete title) title in books collection       | title                |
@@ -39,14 +39,14 @@ This is a RESTful API built using **Node.js**, **Express**, and **MongoDB** (wit
 | Method | Route                                  | Description                                                         | Route parameter |
 | ------ | -------------------------------------- | ------------------------------------------------------------------- |------------|
 | GET    | `/api/borrow/seed`                     | seeds data in borrow collection                                     |            |
-| POST   | `/api/borrow`                          | creates one or more borrow entry (Sample data below)                 |            |
+| POST   | `/api/borrow`                          | creates one or more borrow entry (Sample data below)                |            |
 | GET    | `/api/borrow`                          | gets list of borrow records                                         |            |
 | GET    | `/api/borrow/:id`                      | gets one borrow entry based on Object Id                            | Object Id  | 
 | PUT    | `/api/borrow/:id`                      | updates one borrow record based on object id                        | Object Id  |
 | DELETE | `/api/borrow/:id`                      | deletes one borrow record based on object id                        | Object Id  |
 |  GET   |`/api/borrow/user/:id`                  | get all the borrow records for a user based on userId               | UserId     |
 | GET    | `/api/borrow/book/:id`                 | get all borrow records for a book based on bookId                   |BookkId     |
-| GET    | `/api/borrow/user/:userId/book/:bookId`| get all the records of a user for a book based on userId and bookId |            |
+| GET    | `/api/borrow/user/:userId/book/:bookId`| get all the records of a user for a book based on userId and bookId |UserId and BookId            |
 
 ---
 ## 🛠️ Tools & Technologies Used
